@@ -60,6 +60,9 @@ model Funcionario {
   dataNasc DateTime
   salario  Float
   tipo     String
+
+  email     String   @unique // O email deve ser único
+  senha     String
 }
 
 model Fornecedor {

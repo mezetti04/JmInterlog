@@ -6,27 +6,33 @@ async function main() {
 
     console.log('Iniciando o seed...')
     const senhaHash = await argon2.hash('senha123'); 
-
+    const senhaFuncionarioHash = await argon2.hash('senha123'); // Senha para funcionários
+    const senhaVeiculoHash = await argon2.hash('senha123'); // Senha para veículos
+  
   // Criando funcionários
   const funcionario1 = await prisma.funcionario.create({
     data: {
-      nomeFunc: 'João Silva',
+      nomeFunc: 'João Silva Gerente',
       cpfFunc: '12345678901',
       dataNasc: new Date('1990-01-01'),
-      salario: 2500,
-      tipo: 'MOTORISTA',
+      salario: 5000,
+      tipo: 'GERENTE', // Definindo um gerente
+      email: 'gerente@jminterlog.com', // Email de login
+      senha: senhaFuncionarioHash, // Senha hasheada
     },
-  })
+  });
 
   const funcionario2 = await prisma.funcionario.create({
     data: {
-      nomeFunc: 'Maria Oliveira',
+      nomeFunc: 'Maria Oliveira Motorista',
       cpfFunc: '10987654321',
       dataNasc: new Date('1985-05-15'),
       salario: 3000,
       tipo: 'MOTORISTA',
+      email: 'motorista@jminterlog.com', // Email de login
+      senha: senhaFuncionarioHash, // Senha hasheada
     },
-  })
+  });
 
   // Transportadora
   const transportadora = await prisma.transportadora.create({
@@ -46,7 +52,7 @@ async function main() {
       marca: 'Ford',
       ano: 2015,
       capacidade: 2000,
-      senha: senhaHash, // Adicionando a senha hash
+      senha: senhaVeiculoHash, // Adicionando a senha hash
     },
   })
 
@@ -58,7 +64,7 @@ async function main() {
       marca: 'Mercedes',
       ano: 2020,
       capacidade: 5000,
-      senha: senhaHash,
+      senha: senhaVeiculoHash,
     },
   })
 

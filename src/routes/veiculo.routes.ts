@@ -43,7 +43,7 @@ const controller = new VeiculoController();
  *   name: Veiculos
  *   description: Gerenciamento de veículos
  */
-
+router.use(authenticateJWT);
 /**
  * @swagger
  * /veiculos:
